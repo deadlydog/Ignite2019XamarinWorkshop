@@ -29,7 +29,12 @@
 				  ItemSelected="ListView_ItemSelected"
                   HasUnevenRows="True"
                   Grid.ColumnSpan="2"
-				  SeparatorVisibility="None">
+				  SeparatorVisibility="None"
+				  IsPullToRefreshEnabled="True"
+				  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+				  RefreshCommand="{Binding GetMonkeysCommand}"
+				  CachingStrategy="RecycleElement">
+			
 			<ListView.ItemTemplate>
 				<DataTemplate x:DataType="model:Monkey">
 					<ViewCell>
