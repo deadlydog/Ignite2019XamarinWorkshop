@@ -1,24 +1,27 @@
 ﻿using MonkeyFinder.Model;
+using MonkeyFinder.ViewModel;
 using Xamarin.Forms;
 
 namespace MonkeyFinder.View
 {
-    public partial class MainPage : ContentPage
-    {
-        public MainPage()
-        {
-            InitializeComponent();
-        }
+	public partial class MainPage : ContentPage
+	{
+		public MainPage()
+		{
+			InitializeComponent();
 
-        async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            var monkey = e.SelectedItem as Monkey;
-            if (monkey == null)
-                return;
+			BindingContext = new MonkeysViewModel();
+		}
 
-            await Navigation.PushAsync(new DetailsPage(monkey));
+		async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+		{
+			var monkey = e.SelectedItem as Monkey;
+			if (monkey == null)
+				return;
 
-            ((ListView)sender).SelectedItem = null;
-        }
-    }
+			await Navigation.PushAsync(new DetailsPage(monkey));
+
+			((ListView)sender).SelectedItem = null;
+		}
+	}
 }
