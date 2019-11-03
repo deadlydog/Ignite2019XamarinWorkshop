@@ -14,10 +14,25 @@ namespace MonkeyFinder.ViewModel
            
         }
 
-        public MonkeyDetailsViewModel(Monkey monkey)
-            : this()
-        {
-        }
-    
-    }
+		public MonkeyDetailsViewModel(Monkey monkey)
+		: this()
+		{
+			Monkey = monkey;
+			Title = $"{Monkey.Name} Details";
+		}
+
+		Monkey monkey;
+		public Monkey Monkey
+		{
+			get => monkey;
+			set
+			{
+				if (monkey == value)
+					return;
+
+				monkey = value;
+				OnPropertyChanged();
+			}
+		}
+	}
 }
