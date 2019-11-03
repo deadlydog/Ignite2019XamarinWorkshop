@@ -9,10 +9,12 @@ namespace MonkeyFinder.ViewModel
 {
     public class MonkeyDetailsViewModel : BaseViewModel
     {
-        public MonkeyDetailsViewModel()
+		public Command OpenMapCommand { get; }
+
+		public MonkeyDetailsViewModel()
         {
-           
-        }
+			OpenMapCommand = new Command(async () => await OpenMapAsync());
+		}
 
 		public MonkeyDetailsViewModel(Monkey monkey)
 		: this()
@@ -32,6 +34,19 @@ namespace MonkeyFinder.ViewModel
 
 				monkey = value;
 				OnPropertyChanged();
+			}
+		}
+
+		private async Task OpenMapAsync()
+		{
+			try
+			{
+				await Map.OpenAsync(Monkey.Latitude, Monkey.Longitude);
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine($"Unable to launch maps: {ex.Message}");
+				await Application.Current.MainPage.DisplayAlert("Error, no Maps app!", ex.Message, "OK");
 			}
 		}
 	}
